@@ -18,8 +18,9 @@ class SuTitlebar extends React.Component {
                 height: options.height || '28px',
                 backgroundColor: options.bgColor || '#1a1a1e'
             }}>
+                {options.Title?<div className="su-titlebar-title">{options.Title}</div>:<div style={{width: 0}}/>}
                 {options.titlebarContent || <div style={{width: 0}}/>}
-                <div className="su-titlebar-dragarea" style={{ backgroundColor: options.bgColor || '#1a1a1e' }}>{options.Title||''}</div>
+                <div className="su-titlebar-dragarea" style={{ backgroundColor: options.bgColor || '#1a1a1e' }}/>
                 <div className="window-control-buttons" style={{ backgroundColor: options.bgColor || '#1a1a1e' }}>
                     <div className="window-control-button window-control-button-min" onClick={this.minimise}/>
                     <div className="window-control-button window-control-button-max" onClick={this.maximise}/>
@@ -48,4 +49,4 @@ class SuTitlebar extends React.Component {
 
 }
 
-export default SuTitlebar;
+export default SuTitlebar
