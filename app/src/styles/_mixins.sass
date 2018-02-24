@@ -1,0 +1,12 @@
+=text($size: 12px, $font-family: 'Lato', $font-weight: 400, $colour: $white-grey, $centered: false,  $line-height: 12px, $text-transform: none)
+    font-family: $font-family
+    font-weight: $font-weight
+    font-size: $size
+    @if $centered
+        text-align: center
+    color: $colour
+    line-height: $line-height
+    text-transform: $text-transform
+
+.text-default
+    +text
