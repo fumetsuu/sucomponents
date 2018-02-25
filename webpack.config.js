@@ -1,9 +1,10 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 const webpack = require('webpack')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
-    devtool: 'inline-source-map', //for chrome devtools
+    devtool: 'eval', //for chrome devtools
 
     watch: true, //watch project folder
 
@@ -55,6 +56,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: "app/index.html"
         })
+        
 ]
 
 }

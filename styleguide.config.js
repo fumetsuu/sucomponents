@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-    components: 'SuComponents/*/src/SuTitlebar.js',
+    components: 'SuComponents/*/src/Su*.{js,jsx}',
     webpackConfig: {
         entry: './src/index.js', 
 
