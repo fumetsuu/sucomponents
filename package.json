@@ -1,11 +1,12 @@
 {
-  "name": "erwbp",
+  "name": "su-components",
   "version": "1.0.0",
-  "description": "Electron React Webpack Boilerplate",
+  "description": "A bunch of components for electron+React",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "start": "electron ."
+    "start": "electron .",
+    "styleguide": "styleguidist build"
   },
   "author": "",
   "license": "ISC",
@@ -28,8 +29,10 @@
   "dependencies": {
     "babel-preset-react": "^6.24.1",
     "electron-debug": "^1.5.0",
+    "es6-promise": "^4.2.4",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-styleguidist": "^6.2.5",
     "su-titlebar": "^1.0.5",
     "webpack-dev-server": "^2.11.1"
   }
