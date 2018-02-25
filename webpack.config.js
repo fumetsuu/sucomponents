@@ -10,7 +10,7 @@ module.exports = {
 
     target: 'electron',
 
-    entry: './app/src/entry.js', //this is what webpack looks for to bundle into bundle.js (this file will call a lot of other components)
+    entry: './app/src/entry.js',
 
     output: { //location and filename for bundled js
         path: __dirname + '/app/build',
@@ -56,7 +56,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: "app/index.html"
         })
-        
 ]
 
 }

@@ -5,7 +5,6 @@ const remote = require('electron').remote
 require("./styles/main.sass");
 
 import SuTitlebar from 'su-titlebar'
-
 import SuTabs from './components/SuTabs'
 export default class App extends Component {
     render() {

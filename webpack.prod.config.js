@@ -6,7 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const prod = {
     devtool: 'none',
 
-    watch: false, 
+    watch: true, 
 
     plugins: [
         new webpack.DefinePlugin({ // <-- key to reducing React's size
@@ -14,8 +14,7 @@ const prod = {
                 'NODE_ENV': JSON.stringify('production')
             }
         }),
-        new UglifyJsPlugin(),
-        new webpack.optimize.AggressiveMergingPlugin()//Merge chunks 
+        new UglifyJsPlugin()
     ]
 }
 
