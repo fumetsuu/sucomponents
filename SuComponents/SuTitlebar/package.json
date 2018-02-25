@@ -1,11 +1,12 @@
 {
   "name": "su-titlebar",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "Simple, customisable titlebar for electron+React",
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack",
+    "styleguide": "styleguidist build"
   },
   "author": "fumetsu",
   "license": "MIT",
@@ -13,6 +14,7 @@
     "react": "^16.2.0"
   },
   "dependencies": {
+    "prop-types": "^15.6.0",
     "react": "^16.2.0"
   },
   "devDependencies": {
@@ -25,6 +27,7 @@
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "react-styleguidist": "^6.2.5"
   }
 }

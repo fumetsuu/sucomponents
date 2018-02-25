@@ -1,7 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 require('./style.sass')
 
+/**
+ * SuTitlebar Component
+ */
 class SuTitlebar extends React.Component {
     constructor(props) {
         super(props)
@@ -47,6 +51,26 @@ class SuTitlebar extends React.Component {
         this.remote.getCurrentWindow().close()
     }
 
+}
+
+SuTitlebar.propTypes = {
+    /**
+     * electron remote object for window controls
+     */
+    remote: PropTypes.object.isRequired,
+    /**
+     * title to be displayed at the top left
+     */
+    Title: PropTypes.string,
+    /**
+     * options for titlebar
+     */
+    options: PropTypes.object
+}
+
+SuTitlebar.defaultProps = {
+    Title: '',
+    options: {}
 }
 
 export default SuTitlebar

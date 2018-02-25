@@ -5,13 +5,17 @@ const remote = require('electron').remote
 require("./styles/main.sass");
 
 import SuTitlebar from 'su-titlebar'
-console.log(SuTitlebar)
 
+import SuTabs from './components/SuTabs'
 export default class App extends Component {
     render() {
         return(
-            <div>
-                <SuTitlebar/>
+            <div className="wrapper">
+                <SuTitlebar remote={remote}/>
+                <div className="content-area">
+                    <SuTabs/>
+                    <div style={{height: '1500px'}}>ohhh</div>
+                </div>
             </div>
         );
     }

@@ -1,6 +1,18 @@
 @import 'vars'
 @import 'mixins'
 
-body
+body, html, #app, .wrapper
+    padding: 0
+    margin: 0
+    height: 100%
     background-color: $grey
     +text
+
+.wrapper
+    .content-area
+        height: unquote("calc(100% - 28px)")
+        width: 100%
+        position: absolute
+        top: 28px
+        background-color: grey
+        overflow: auto
