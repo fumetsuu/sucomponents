@@ -1,27 +1,20 @@
 const merge = require('webpack-merge')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require("html-webpack-plugin")
 const webpack = require('webpack')
 const common = require('./webpack.config.js')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const prod = {
-    devtool: 'none', //for chrome devtools
+    devtool: 'none',
 
-    watch: false, //watch project folder
+    watch: false, 
 
     plugins: [
-        new ExtractTextPlugin({
-            filename: 'css/bundle.css'
-        }),
-        new HtmlWebpackPlugin({
-            template: "app/index.html"
-        }),
         new webpack.DefinePlugin({ // <-- key to reducing React's size
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
             }
         }),
-        new webpack.optimize.UglifyJsPlugin(), //minify everything
+        new UglifyJsPlugin(),
         new webpack.optimize.AggressiveMergingPlugin()//Merge chunks 
     ]
 }
