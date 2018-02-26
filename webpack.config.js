@@ -8,7 +8,7 @@ module.exports = {
 
     watch: true, //watch project folder
 
-    target: 'electron',
+    target: 'electron-main',
 
     entry: './app/src/entry.js',
 

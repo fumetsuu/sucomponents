@@ -1,5 +1,6 @@
 @import 'vars'
 @import 'mixins'
+@import 'scrollbar'
 
 body, html, #app, .wrapper
     padding: 0
@@ -14,5 +15,19 @@ body, html, #app, .wrapper
         width: 100%
         position: absolute
         top: 28px
-        background-color: red
+        background-color: $dark-grey
         overflow: auto
+
+.su-tabs-container
+    display: flex
+    justify-content: start
+
+.su-tabs
+    background-color: $red
+    padding: 10px 20px
+    display: inline-block
+    user-select: none
+    position: relative
+    &:hover
+        background-color: $blue
+        cursor: pointer

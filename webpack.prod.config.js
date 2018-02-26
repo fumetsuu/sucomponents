@@ -6,7 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const prod = {
     devtool: 'none',
 
-    watch: true, 
+    watch: false, 
 
     plugins: [
         new webpack.DefinePlugin({ // <-- key to reducing React's size

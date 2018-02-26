@@ -9,8 +9,14 @@ require('electron-reload')(path.join(__dirname, '/app/build/'))
 let mainWindow
 
 app.on('ready', () => {
-    let mainWindow = new BrowserWindow({ frame: false, width: 800, height: 600, backgroundColor: '#1a1a1e' })
+    mainWindow = new BrowserWindow({ frame: false, width: 800, height: 600, backgroundColor: '#1a1a1e', show: false })
     mainWindow.setTitle('SuComponents')
     mainWindow.setMenu(null)
     mainWindow.loadURL('file://'+__dirname+'/app/index.html')
+    mainWindow.on('ready-to-show', () => {
+        mainWindow.show()
+    })
+    mainWindow.on('closed', () => {
+        mainWindow = null
+    })
 })
