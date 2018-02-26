@@ -15,6 +15,14 @@ const tabs = [
     {
         value: '1',
         label: 'test tweoioooooo'
+    },
+    {
+        value: '2',
+        label: 'heyyyyyy thre'
+    },
+    {
+        value: '4',
+        label: 'hi four'
     }
 ]
 export default class App extends Component {

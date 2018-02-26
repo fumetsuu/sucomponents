@@ -39,7 +39,7 @@ class SuTabItem extends Component {
     dragTab(e) {
         this.maxwidth = e.currentTarget.parentElement.offsetWidth
         this.minwidth = e.currentTarget.parentElement.offsetLeft
-        this.setState({ isDragging: true })
+        this.setState({ isDragging: true, x: this.self.offsetLeft })
     }
 
     dragTabMove(e) {
