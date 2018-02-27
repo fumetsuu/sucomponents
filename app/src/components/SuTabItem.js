@@ -39,7 +39,8 @@ class SuTabItem extends Component {
         this.setState({ isDragging: true, x: this.self.offsetLeft })
         this.tabsArray = Array.from(this.container.childNodes)
         var pos = this.tabsArray.indexOf(this.self)
-        this.props.handleDrag(pos, this.props)
+        var who = { value: this.props.value, label: this.props.label }
+        this.props.handleDrag(pos, who)
     }
 
     dragTabMove(e) {
@@ -61,7 +62,8 @@ class SuTabItem extends Component {
                         var psX = this.self.previousElementSibling.offsetLeft + this.self.previousElementSibling.clientWidth / 2
                         if(deltaX <= psX) {
                             var pos = this.tabsArray.indexOf(this.self.previousElementSibling)
-                            this.props.handleDrag(pos, this.props)
+                            var who = { value: this.props.value, label: this.props.label }
+                            this.props.handleDrag(pos, who)
                         }
                     }
         }
@@ -69,7 +71,8 @@ class SuTabItem extends Component {
 
     dragTabUp(e) {
         this.setState({ isDragging: false, x: 0 })
-        this.props.handleUp()
+        var who = { value: this.props.value, label: this.props.label }
+        this.props.handleUp(who)
     }
 }
 

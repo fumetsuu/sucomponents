@@ -9,15 +9,15 @@ import SuTabs from './components/SuTabs'
 
 const tabs = [
     {
-        value: '0',
+        value: '1',
         label: 'ONE 1'
     },
     {
-        value: '1',
+        value: '2',
         label: 'TWO 2'
     },
     {
-        value: '2',
+        value: '3',
         label: 'THREE 3'
     },
     {
@@ -31,7 +31,7 @@ export default class App extends Component {
             <div className="wrapper">
                 <SuTitlebar remote={remote} />
                 <div className="content-area">
-                    <SuTabs tabs={tabs} tabClass='su-tabs'/>
+                    <SuTabs tabs={tabs} tabClass='su-tabs' tabClassActive='su-tabs-active'/>
                 </div>
             </div>
         );

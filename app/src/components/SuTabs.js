@@ -24,7 +24,9 @@ class SuTabs extends Component {
     }
 
     renderTab(tabObject) {
-        return <SuTabItem key={tabObject.value} value={tabObject.value} label={tabObject.label} tabClass={this.props.tabClass} handleDrag={this.handleDrag.bind(this)} handleUp={this.handleUp.bind(this)}/>
+        var tabClass = this.props.tabClass
+        tabClass+=this.state.selectedTab.value==tabObject.value?' '+this.props.tabClassActive : ''
+        return <SuTabItem key={tabObject.value} value={tabObject.value} label={tabObject.label} tabClass={tabClass} handleDrag={this.handleDrag.bind(this)} handleUp={this.handleUp.bind(this)} />
     }
 
     allTabsToState() {
@@ -34,16 +36,23 @@ class SuTabs extends Component {
     }
 
     handleDrag(placeholderPosition, who) {
-        var replacementEl = <SuTabItem key={who.value} value={who.value} label={who.label} tabClass={this.props.tabClass} handleDrag={this.handleDrag.bind(this)} handleUp={this.handleUp.bind(this)}/>
-        let newtabsarray = [...this.filterPlaceholdersOut(this.state.tabsArray, who.value).slice(0, placeholderPosition), replacementEl, ...this.filterPlaceholdersOut(this.state.tabsArray, who.value).slice(placeholderPosition)]
-        this.setState({
-            tabsArray: newtabsarray
+        if(this.props.onTabChange) {
+            this.props.onTabChange(tabObject)
+        }
+        this.setState({ selectedTab: who }, () => {
+            var replacementEl = this.renderTab(who)
+            let newtabsarray = [...this.filterPlaceholdersOut(this.state.tabsArray, who).slice(0, placeholderPosition), replacementEl, ...this.filterPlaceholdersOut(this.state.tabsArray, who).slice(placeholderPosition)]
+            this.setState({
+                tabsArray: newtabsarray
+            })
         })
-        console.log(newtabsarray)
+
     }
 
-    handleUp() {
-        
+    handleUp(tabObject) {
+        if(this.props.onDragChange) {
+            this.props.onDragChange(this.state.tabsArray)
+        }
     }
 
     componentWillMount() {
@@ -58,8 +67,12 @@ class SuTabs extends Component {
         )
     }
 
-    filterPlaceholdersOut(tabsArray, whoVal) {
-        return tabsArray.filter(el => el.props.value != whoVal)
+    filterPlaceholdersOut(tabsArray, who) {
+        var whoVal = who.value
+        return tabsArray.filter(el => el.props.value != whoVal).map(el => {
+            var tabObject = { value: el.props.value, label: el.props.label }
+            return this.renderTab(tabObject)
+        })
     }
 }
 
