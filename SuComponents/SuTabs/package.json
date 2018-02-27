@@ -1,0 +1,23 @@
+{
+  "name": "su-titlebar",
+  "version": "1.2.0",
+  "description": "Simple, customisable titlebar for electron+React",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "fumetsu",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.2.0",
+    "prop-types": "^15.6.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "uglifyjs-webpack-plugin": "^1.2.2",
+    "webpack": "^3.10.0"
+  }
+}
