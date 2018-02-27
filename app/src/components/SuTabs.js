@@ -10,9 +10,7 @@ class SuTabs extends Component {
         super(props)
         this.state = {
             tabsArray: [],
-            selectedTab: this.props.tabs[0],
-            isDragging: false,
-            x: 0
+            selectedTab: this.props.tabs[0]
         }
         this.defaultStyle = {
             padding: '10px 20px',
@@ -26,13 +24,26 @@ class SuTabs extends Component {
     }
 
     renderTab(tabObject) {
-        return <SuTabItem key={tabObject.value} value={tabObject.value} label={tabObject.label} tabClass={this.props.tabClass}/>
+        return <SuTabItem key={tabObject.value} value={tabObject.value} label={tabObject.label} tabClass={this.props.tabClass} handleDrag={this.handleDrag.bind(this)} handleUp={this.handleUp.bind(this)}/>
     }
 
     allTabsToState() {
         this.setState({
             tabsArray: this.props.tabs.map(tab => this.renderTab(tab))
         }) 
+    }
+
+    handleDrag(placeholderPosition, who) {
+        var replacementEl = <SuTabItem key={who.value} value={who.value} label={who.label} tabClass={this.props.tabClass} handleDrag={this.handleDrag.bind(this)} handleUp={this.handleUp.bind(this)}/>
+        let newtabsarray = [...this.filterPlaceholdersOut(this.state.tabsArray, who.value).slice(0, placeholderPosition), replacementEl, ...this.filterPlaceholdersOut(this.state.tabsArray, who.value).slice(placeholderPosition)]
+        this.setState({
+            tabsArray: newtabsarray
+        })
+        console.log(newtabsarray)
+    }
+
+    handleUp() {
+        
     }
 
     componentWillMount() {
@@ -45,6 +56,10 @@ class SuTabs extends Component {
             {this.state.tabsArray}
         </div>
         )
+    }
+
+    filterPlaceholdersOut(tabsArray, whoVal) {
+        return tabsArray.filter(el => el.props.value != whoVal)
     }
 }
 

@@ -10,19 +10,19 @@ import SuTabs from './components/SuTabs'
 const tabs = [
     {
         value: '0',
-        label: 'testheyyyyyyyyy'
+        label: 'ONE 1'
     },
     {
         value: '1',
-        label: 'test tweoioooooo'
+        label: 'TWO 2'
     },
     {
         value: '2',
-        label: 'heyyyyyy thre'
+        label: 'THREE 3'
     },
     {
         value: '4',
-        label: 'hi four'
+        label: 'FOUR 4'
     }
 ]
 export default class App extends Component {

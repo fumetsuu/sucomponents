@@ -21,14 +21,10 @@ class SuTabItem extends Component {
         
     render() {
         let { tabClass, value, label  } = this.props
-        if(tabClass) {
-            return <div ref={tab => { this.self = tab }} className={tabClass} key={value} onMouseDown={this.dragTab} style={{
-                left: this.state.x+'px',
-                position: this.state.isDragging ? 'absolute' : 'initial'
-            }}>{label}</div>
-        } else {
-            return <div style={this.defaultStyle} key={value}>{label}</div>
-        }
+        return <div ref={tab => { this.self = tab }} className={tabClass} key={value} onMouseDown={this.dragTab} style={Object.assign({}, this.defaultStyle, {
+            left: this.state.x+'px',
+            position: this.state.isDragging ? 'absolute' : 'initial'
+        })}>{label}</div>
     }
 
     componentDidMount() {
@@ -37,9 +33,13 @@ class SuTabItem extends Component {
     }
     
     dragTab(e) {
-        this.maxwidth = e.currentTarget.parentElement.offsetWidth
-        this.minwidth = e.currentTarget.parentElement.offsetLeft
+        this.container = e.currentTarget.parentElement
+        this.maxwidth = this.container.offsetWidth
+        this.minwidth = this.container.offsetLeft
         this.setState({ isDragging: true, x: this.self.offsetLeft })
+        this.tabsArray = Array.from(this.container.childNodes)
+        var pos = this.tabsArray.indexOf(this.self)
+        this.props.handleDrag(pos, this.props)
     }
 
     dragTabMove(e) {
@@ -49,11 +49,27 @@ class SuTabItem extends Component {
                     this.setState({
                         x: deltaX
                     })
+                    
+                    if(e.movementX > 0 && this.self.nextElementSibling) {
+                        var nsX = this.self.nextSibling.offsetLeft + this.self.nextSibling.clientWidth / 2
+                        if(deltaX + this.self.offsetWidth >= nsX) {
+                            var pos = this.tabsArray.indexOf(this.self.nextElementSibling)
+                            this.props.handleDrag(pos, this.props)
+                        }
+                    }
+                    if(e.movementX < 0 && this.self.previousElementSibling) {
+                        var psX = this.self.previousElementSibling.offsetLeft + this.self.previousElementSibling.clientWidth / 2
+                        if(deltaX <= psX) {
+                            var pos = this.tabsArray.indexOf(this.self.previousElementSibling)
+                            this.props.handleDrag(pos, this.props)
+                        }
+                    }
         }
     }
 
     dragTabUp(e) {
         this.setState({ isDragging: false, x: 0 })
+        this.props.handleUp()
     }
 }
 
