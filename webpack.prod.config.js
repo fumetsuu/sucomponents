@@ -8,6 +8,8 @@ const prod = {
 
     watch: false, 
 
+    mode: 'production',
+
     plugins: [
         new webpack.DefinePlugin({ // <-- key to reducing React's size
             'process.env': {

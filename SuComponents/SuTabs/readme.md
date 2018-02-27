@@ -1,3 +1,3 @@
-# SuTitlebar
+# SuTabs
 
-Title bar component for electron+React
+Simple drag-reorder tabs (only horizontal)

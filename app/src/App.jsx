@@ -5,7 +5,7 @@ const remote = require('electron').remote
 require("./styles/main.sass");
 
 import SuTitlebar from 'su-titlebar'
-import SuTabs from './components/SuTabs'
+import SuTabs from 'su-tabs'
 
 const tabs = [
     {
@@ -23,6 +23,10 @@ const tabs = [
     {
         value: '4',
         label: 'FOUR 4'
+    },
+    {
+        value: '5',
+        label: 'FIVE 5'
     }
 ]
 export default class App extends Component {

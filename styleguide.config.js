@@ -2,6 +2,7 @@ const path = require('path')
 
 module.exports = {
     components: 'SuComponents/*/src/Su*.{js,jsx}',
+    ignore: ['SuComponents/SuTabs/src/SuTabItem.js'],
     webpackConfig: {
         entry: './src/index.js', 
 

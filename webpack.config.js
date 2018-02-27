@@ -1,7 +1,7 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require("html-webpack-plugin")
+//const HtmlWebpackPlugin = require("html-webpack-plugin")
 const webpack = require('webpack')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+// co/\nst BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
     devtool: 'eval', //for chrome devtools
@@ -11,6 +11,8 @@ module.exports = {
     target: 'electron-main',
 
     entry: './app/src/entry.js',
+
+    mode: 'development',
 
     output: { //location and filename for bundled js
         path: __dirname + '/app/build',
@@ -45,7 +47,7 @@ module.exports = {
                     name: 'img/[name].[ext]'
                 }
             },
-            { test: /\.html$/, use: ["html-loader"] }
+           // { test: /\.html$/, use: ["html-loader"] }
         ]
     },
 
@@ -53,9 +55,9 @@ module.exports = {
         new ExtractTextPlugin({
             filename: 'css/bundle.css'
         }),
-        new HtmlWebpackPlugin({
-            template: "app/index.html"
-        })
+        // new HtmlWebpackPlugin({
+        //     template: "app/index.html"
+        // })
 ]
 
 }
