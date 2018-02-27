@@ -40,7 +40,7 @@ class SuTabItem extends Component {
         this.tabsArray = Array.from(this.container.childNodes)
         var pos = this.tabsArray.indexOf(this.self)
         var who = { value: this.props.value, label: this.props.label }
-        this.props.handleDrag(pos, who)
+        this.props.handleTabChange(who)
     }
 
     dragTabMove(e) {

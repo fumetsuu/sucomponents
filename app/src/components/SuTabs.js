@@ -26,7 +26,7 @@ class SuTabs extends Component {
     renderTab(tabObject) {
         var tabClass = this.props.tabClass
         tabClass+=this.state.selectedTab.value==tabObject.value?' '+this.props.tabClassActive : ''
-        return <SuTabItem key={tabObject.value} value={tabObject.value} label={tabObject.label} tabClass={tabClass} handleDrag={this.handleDrag.bind(this)} handleUp={this.handleUp.bind(this)} />
+        return <SuTabItem key={tabObject.value} value={tabObject.value} label={tabObject.label} tabClass={tabClass} handleDrag={this.handleDrag.bind(this)} handleUp={this.handleUp.bind(this)} handleTabChange={this.handleTabChange.bind(this)}/>
     }
 
     allTabsToState() {
@@ -36,9 +36,6 @@ class SuTabs extends Component {
     }
 
     handleDrag(placeholderPosition, who) {
-        if(this.props.onTabChange) {
-            this.props.onTabChange(tabObject)
-        }
         this.setState({ selectedTab: who }, () => {
             var replacementEl = this.renderTab(who)
             let newtabsarray = [...this.filterPlaceholdersOut(this.state.tabsArray, who).slice(0, placeholderPosition), replacementEl, ...this.filterPlaceholdersOut(this.state.tabsArray, who).slice(placeholderPosition)]
@@ -53,6 +50,17 @@ class SuTabs extends Component {
         if(this.props.onDragChange) {
             this.props.onDragChange(this.state.tabsArray)
         }
+    }
+
+    handleTabChange(tabObject) {
+        if(this.props.onTabChange) {
+            this.props.onTabChange(tabObject)
+        }
+        this.setState({ selectedTab: tabObject }, () => {
+            this.setState({
+                tabsArray: this.filterPlaceholdersOut(this.state.tabsArray, {value:null})
+            })
+        })
     }
 
     componentWillMount() {

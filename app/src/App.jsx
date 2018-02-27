@@ -26,14 +26,23 @@ const tabs = [
     }
 ]
 export default class App extends Component {
+    constructor(props) {
+        super(props)
+        this.handleTabChange = this.handleTabChange.bind(this)
+    }
+    
     render() {
         return(
             <div className="wrapper">
                 <SuTitlebar remote={remote} />
                 <div className="content-area">
-                    <SuTabs tabs={tabs} tabClass='su-tabs' tabClassActive='su-tabs-active'/>
+                    <SuTabs tabs={tabs} tabClass='su-tabs' tabClassActive='su-tabs-active' onTabChange={this.handleTabChange}/>
                 </div>
             </div>
-        );
+        )
+    }
+
+    handleTabChange(selectedTab) {
+        console.log(selectedTab)
     }
 }
