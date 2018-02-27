@@ -1,7 +1,7 @@
 {
-  "name": "su-titlebar",
-  "version": "1.2.0",
-  "description": "Simple, customisable titlebar for electron+React",
+  "name": "su-tabs",
+  "version": "1.0.0",
+  "description": "Simple drag-reorder tabs (only horizontal)",
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
