@@ -131,6 +131,15 @@ class SuTabs extends Component {
 
     closeCurrentTab() {
         let { selectedTab, tabsArray } = this.state
+        if(!tabsArray.length) return
+        if(tabsArray.length == 1) {
+            this.setState({
+                tabsArray: []
+            }, () => {
+                this.handleTabChange({})
+            })
+            return
+        }
         let newtabsarray = tabsArray.filter(tab => tab.props.value != selectedTab.value)
         if(this.props.onTabClose) {
             this.props.onTabClose(tabsArray, selectedTab)
@@ -155,6 +164,7 @@ class SuTabs extends Component {
 
     switchTab() {
         let { selectedTab, tabsArray } = this.state
+        if(tabsArray.length <= 1) return
         let currentIndex = tabsArray.findIndex(el => el.props.value == selectedTab.value)
         currentIndex = currentIndex == tabsArray.length-1 ? -1 : currentIndex
         let { value, label } = tabsArray[currentIndex+1].props

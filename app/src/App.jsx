@@ -57,6 +57,7 @@ export default class App extends Component {
                             <Route path="/3" component={Zone3}/>
                             <Route path="/4" component={Zone4}/>
                             <Route path="/5" component={Zone5}/>
+                            <Route render={() => <div>DEADDDDDDDD</div>}/>
                         </Switch>
                     </HashRouter>
                     <div style={{fontSize: '24px'}} className="su-tabs" onClick={this.changecurrentabname.bind(this)}>CHANGE TAB NAME</div>
