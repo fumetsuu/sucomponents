@@ -39,13 +39,15 @@ export default class App extends Component {
     constructor(props) {
         super(props)
         this.handleTabChange = this.handleTabChange.bind(this)
+        this.handleNewTab = this.handleNewTab.bind(this)
+        //when open new tab, call setNewTab(value, label)
     }
     
     render() {
         return(
             <div className="wrapper">
                 <SuTitlebar remote={remote} options={{
-                    titlebarContent: <SuTabs tabs={tabs} tabClass='su-tabs' tabClassActive='su-tabs-active' onTabChange={this.handleTabChange}/>
+                    titlebarContent: <SuTabs ref="sutabs" tabs={tabs} tabClass='su-tabs' tabClassActive='su-tabs-active' onTabChange={this.handleTabChange} onNewTab={this.handleNewTab}/>
                 }}/>
                 <div className="content-area">
                     <HashRouter>
@@ -60,6 +62,10 @@ export default class App extends Component {
                 </div>
             </div>
         )
+    }
+
+    handleNewTab() {
+        console.log("hey")
     }
 
     handleTabChange(selectedTab) {
