@@ -18,6 +18,7 @@ class SuTabs extends Component {
         this.handleKeyControl = this.handleKeyControl.bind(this)
         this.closeCurrentTab = this.closeCurrentTab.bind(this)
         this.openNewTab = this.openNewTab.bind(this)
+        this.switchTab = this.switchTab.bind(this)
     }
 
     renderTab(tabObject) {
@@ -54,7 +55,6 @@ class SuTabs extends Component {
             this.props.onTabChange(tabObject)
         }
         this.setState({ selectedTab: tabObject }, () => {
-            console.log(this.state.tabsArray)
             this.setState({
                 tabsArray: this.filterPlaceholdersOut(this.state.tabsArray, {value:null})
             })
@@ -66,11 +66,11 @@ class SuTabs extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('keypress', this.handleKeyControl, true)
+        window.addEventListener('keyup', this.handleKeyControl, true)
     }
 
     componentWillUnmount() {
-        window.removeEventListener('keypress', this.handleKeyControl, true)
+        window.removeEventListener('keyup', this.handleKeyControl, true)
     }
 
     render() {
@@ -94,9 +94,11 @@ class SuTabs extends Component {
 
     handleKeyControl(e) {
         if(e.ctrlKey) {
+            console.log(e.keyCode)
             switch(e.keyCode) {
-                case 23: this.closeCurrentTab(); break;
-                case 20: this.openNewTab(); break;
+                case 87: this.closeCurrentTab(); break;
+                case 84: this.openNewTab(); break;
+                case 9: this.switchTab(); break;
                 default: break;
             }
         }
@@ -117,7 +119,6 @@ class SuTabs extends Component {
     }
 
     setCurrentTab(setTab) {
-        console.log(setTab)
         let { selectedTab, tabsArray } = this.state
         this.setState({
             selectedTab: Object.assign({}, this.state.selectedTab, setTab)
@@ -137,22 +138,28 @@ class SuTabs extends Component {
         }
         let newSelectedTab
         //TODO: handle if closing the only tab there is
-        console.log(tabsArray[tabsArray.length-2].props)
         if(tabsArray[0].props.value == selectedTab.value) {
             let { value, label } = tabsArray[1].props
             newSelectedTab = { value, label }
         } else if(tabsArray[tabsArray.length-1].props.value == selectedTab.value) {
-            console.log(tabsArray)
             let { value, label } = tabsArray[tabsArray.length-2].props
             newSelectedTab = { value, label }
         } else {
             let { value, label } = tabsArray[tabsArray.findIndex(el => el.props.value == selectedTab.value)+1].props
             newSelectedTab = { value, label }
         }
-        console.log(newSelectedTab)
         this.setState({ tabsArray: newtabsarray }, () => {
             this.handleTabChange(newSelectedTab)
         })
+    }
+
+    switchTab() {
+        let { selectedTab, tabsArray } = this.state
+        let currentIndex = tabsArray.findIndex(el => el.props.value == selectedTab.value)
+        currentIndex = currentIndex == tabsArray.length-1 ? -1 : currentIndex
+        let { value, label } = tabsArray[currentIndex+1].props
+        let newSelectedTab = { value, label }
+        this.handleTabChange(newSelectedTab)
     }
 }
 

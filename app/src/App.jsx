@@ -59,6 +59,7 @@ export default class App extends Component {
                             <Route path="/5" component={Zone5}/>
                         </Switch>
                     </HashRouter>
+                    <div style={{fontSize: '24px'}} className="su-tabs" onClick={this.changecurrentabname.bind(this)}>CHANGE TAB NAME</div>
                 </div>
             </div>
         )
@@ -66,6 +67,10 @@ export default class App extends Component {
 
     handleNewTab() {
         console.log("hey")
+    }
+
+    changecurrentabname() {
+        this.refs.sutabs.setCurrentTab({ value: (Math.random()*100000).toString(), label: "hii" })
     }
 
     handleTabChange(selectedTab) {
