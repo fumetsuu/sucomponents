@@ -6,7 +6,7 @@ const remote = require('electron').remote
 require("./styles/main.sass");
 
 import SuTitlebar from 'su-titlebar'
-import SuTabs from 'su-tabs'
+import SuTabs from './components/SuTabs'
 import Zone1 from './components/Zone1'
 import Zone2 from './components/Zone2'
 import Zone3 from './components/Zone3'
