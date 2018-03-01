@@ -12,8 +12,13 @@ class SuTabs extends Component {
             tabsArray: [],
             selectedTab: this.props.tabs[0]
         }
+        this.newtabcount = 0
         this.allTabsToState = this.allTabsToState.bind(this)
         this.renderTab = this.renderTab.bind(this)
+        this.handleKeyControl = this.handleKeyControl.bind(this)
+        this.closeCurrentTab = this.closeCurrentTab.bind(this)
+        this.openNewTab = this.openNewTab.bind(this)
+        this.switchTab = this.switchTab.bind(this)
     }
 
     renderTab(tabObject) {
@@ -60,6 +65,14 @@ class SuTabs extends Component {
         this.allTabsToState()
     }
 
+    componentDidMount() {
+        window.addEventListener('keyup', this.handleKeyControl, true)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('keyup', this.handleKeyControl, true)
+    }
+
     render() {
         return (
         <div className="su-tabs-container" style={{
@@ -78,11 +91,105 @@ class SuTabs extends Component {
             return this.renderTab(tabObject)
         })
     }
+
+    handleKeyControl(e) {
+        if(e.ctrlKey) {
+            console.log(e.keyCode)
+            switch(e.keyCode) {
+                case 87: this.closeCurrentTab(); break;
+                case 84: this.openNewTab(); break;
+                case 9: this.switchTab(); break;
+                default: break;
+            }
+        }
+    }
+
+    /**
+     * open new tab with ctrl+T
+     */
+    openNewTab() {
+        let newTab = { value: 'new-tab'+this.newtabcount, label: 'New Tab' }
+        this.newtabcount++
+        this.setState({ selectedTab: newTab }, () => {
+            this.setState({
+                tabsArray: [...this.state.tabsArray, this.renderTab(newTab)]
+            })
+            this.handleTabChange(newTab)
+        })
+        if(this.props.onNewTab) {
+            this.props.onNewTab()
+        }
+    }
+
+    /**
+     * 
+     * @param {Object} setTab 
+     * sets current tab's value and label
+     */
+    setCurrentTab(setTab) {
+        let { selectedTab, tabsArray } = this.state
+        this.setState({
+            selectedTab: Object.assign({}, this.state.selectedTab, setTab)
+        }, () => {
+            this.setState({
+                tabsArray: this.state.tabsArray.map(tab => tab.props.value != selectedTab.value ? tab : this.renderTab(setTab))                
+            })
+        })
+    }
+
+    /**
+     * closes currently selected tab and fires onTabChange for the newly selected tab
+     */
+    closeCurrentTab() {
+        let { selectedTab, tabsArray } = this.state
+        if(!tabsArray.length) return
+        if(tabsArray.length == 1) {
+            this.setState({
+                tabsArray: []
+            }, () => {
+                this.handleTabChange({})
+            })
+            return
+        }
+        let newtabsarray = tabsArray.filter(tab => tab.props.value != selectedTab.value)
+        if(this.props.onTabClose) {
+            this.props.onTabClose(tabsArray, selectedTab)
+            //returns current array before close and the tab that was closed
+        }
+        let newSelectedTab
+        //TODO: handle if closing the only tab there is
+        if(tabsArray[0].props.value == selectedTab.value) {
+            let { value, label } = tabsArray[1].props
+            newSelectedTab = { value, label }
+        } else if(tabsArray[tabsArray.length-1].props.value == selectedTab.value) {
+            let { value, label } = tabsArray[tabsArray.length-2].props
+            newSelectedTab = { value, label }
+        } else {
+            let { value, label } = tabsArray[tabsArray.findIndex(el => el.props.value == selectedTab.value)+1].props
+            newSelectedTab = { value, label }
+        }
+        this.setState({ tabsArray: newtabsarray }, () => {
+            this.handleTabChange(newSelectedTab)
+        })
+    }
+
+    /**
+     * ctrl+tab to switch tab
+     */
+    switchTab() {
+        let { selectedTab, tabsArray } = this.state
+        if(tabsArray.length <= 1) return
+        let currentIndex = tabsArray.findIndex(el => el.props.value == selectedTab.value)
+        currentIndex = currentIndex == tabsArray.length-1 ? -1 : currentIndex
+        let { value, label } = tabsArray[currentIndex+1].props
+        let newSelectedTab = { value, label }
+        this.handleTabChange(newSelectedTab)
+    }
 }
 
 SuTabs.propTypes = {
     /**
-     * array of tabs that should have unique values
+     * array of tabs that should have unique valuess
      */
     tabs: PropTypes.arrayOf(PropTypes.shape({
         value: PropTypes.string,

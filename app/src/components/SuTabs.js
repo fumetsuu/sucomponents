@@ -104,6 +104,9 @@ class SuTabs extends Component {
         }
     }
 
+    /**
+     * open new tab with ctrl+T
+     */
     openNewTab() {
         let newTab = { value: 'new-tab'+this.newtabcount, label: 'New Tab' }
         this.newtabcount++
@@ -118,6 +121,11 @@ class SuTabs extends Component {
         }
     }
 
+    /**
+     * 
+     * @param {Object} setTab 
+     * sets current tab's value and label
+     */
     setCurrentTab(setTab) {
         let { selectedTab, tabsArray } = this.state
         this.setState({
@@ -129,6 +137,9 @@ class SuTabs extends Component {
         })
     }
 
+    /**
+     * closes currently selected tab and fires onTabChange for the newly selected tab
+     */
     closeCurrentTab() {
         let { selectedTab, tabsArray } = this.state
         if(!tabsArray.length) return
@@ -162,6 +173,9 @@ class SuTabs extends Component {
         })
     }
 
+    /**
+     * ctrl+tab to switch tab
+     */
     switchTab() {
         let { selectedTab, tabsArray } = this.state
         if(tabsArray.length <= 1) return

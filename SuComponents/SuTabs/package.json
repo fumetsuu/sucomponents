@@ -1,8 +1,12 @@
 {
   "name": "su-tabs",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Simple drag-reorder tabs (only horizontal)",
   "main": "build/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fumetsuu/sucomponents.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"

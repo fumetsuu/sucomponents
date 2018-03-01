@@ -77,6 +77,7 @@ class SuTabItem extends Component {
         var who = { value: this.props.value, label: this.props.label }
         this.props.handleUp(who)
     }
+
 }
 
 
