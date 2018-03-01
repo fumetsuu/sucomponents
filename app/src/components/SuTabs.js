@@ -52,6 +52,7 @@ class SuTabs extends Component {
             this.props.onTabChange(tabObject)
         }
         this.setState({ selectedTab: tabObject }, () => {
+            console.log(this.state.tabsArray)
             this.setState({
                 tabsArray: this.filterPlaceholdersOut(this.state.tabsArray, {value:null})
             })
@@ -102,20 +103,23 @@ class SuTabs extends Component {
     closeCurrentTab() {
         console.log( 'hey')
         let { selectedTab, tabsArray } = this.state
-        let newtabsarray = tabsArray.filter(tab => tab.value != selectedTab.value)
+        let newtabsarray = tabsArray.filter(tab => tab.props.value != selectedTab.value)
         if(this.props.onTabClose) {
             this.props.onTabClose(tabsArray, selectedTab)
             //returns current array before close and the tab that was closed
         }
         let newSelectedTab
-        if(tabsArray.indexOf(selectedTab) == 0) {
-            newSelectedTab = tabsArray[1]
-        } else if(tabsArray.indexOf(selectedTab) == tabsArray.length-1) {
-            newSelectedTab = tabsArray[tabsArray.length-2]
+        //TODO: handle if closing the only tab there is
+        if(tabsArray[0].props.value == selectedTab.value) {
+            let { value, label } = tabsArray[1].props
+            newSelectedTab = { value, label }
+        } else if(tabsArray[tabsArray.length-1].value == selectedTab.value) {
+            let { value, label } = tabsArray[tabsArray.length-2].props
+            newSelectedTab = { value, label }
         } else {
-            newSelectedTab = tabsArray[tabsArray.indexOf(selectedTab)+1]
+            let { value, label } = tabsArray[tabsArray.findIndex(el => el.props.value == selectedTab.value)+1].props
+            newSelectedTab = { value, label }
         }
-        console.log(newSelectedTab)
         this.setState({ tabsArray: newtabsarray }, () => {
             this.handleTabChange(newSelectedTab)
         })
